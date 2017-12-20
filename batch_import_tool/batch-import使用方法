@@ -1,0 +1,37 @@
+前提：
+1、准备一台服务器并且已经安装JDK1.8.X版本，推荐使用Oracle JDK1.8.111
+2、研发提供的batch_import_tool压缩文件放到D:\neo4j,并解压到当前文件
+3、将生成的CSV文件放到D:\neo4j\batch_import_tool\csv\相关路径下
+4、已经安装Neo4j 3.3.1版本，可以查看Neo4j的操作手册
+
+
+Batch Import 导入：
+1、进入cmd命令模式
+2、cd D:\neo4j\batch_import_tool
+3、D：
+4 、执行import命令进行csv数据导入
+测试:
+import E:\neo4j\batch_import_tool\database\dbtest.db E:\neo4j\batch_import_tool\csv\user.csv /
+E:\neo4j\batch_import_tool\file\user-rels.csv
+正式数据:
+import D:\neo4j\db\kshfx.db csv\user.csv,csv\flight.csv,csv\hotel.csv,csv\train.csv /
+csv\flight-rels.csv,csv\hotel-rels.csv,csv\train-rels.csv
+
+拷贝数据库文件到Neo4j，切换数据库：
+1、将D:\neo4j\db\下的kshfx.db文件夹拷贝到$Neo4j Home\data\database\路径下
+比如我们安装的Neo4j路径路径为D:\neo4j\neo4j-community-3.3.1\，拷贝路径为D:\neo4j\neo4j-community-3.3.1\data\databases
+2、修改Neo4j的配置文件neo4j.conf
+dbms.active_database=kshfx.db
+3、重启Neo4j
+neo4j restart
+5、前台查看
+
+
+参数说明：
+import .../db node.csv rels.csv
+其中第一个参数'.../db'为图数据的文件目录
+第二个参数'node.csv'为node的csv文件，多个文件用','分割，文件记得带路径这个因为文件在E:\Neo4J\batch_import_tool文件路径下所以直接使用本路径
+第三个参数'rels.csv'为rels关系的csv文件，多好文件用','分割开，文件记得带路径这个因为文件在E:\Neo4J\batch_import_tool文件路径下所以直接使用本路径
+
+备注：import neo4j数据文件目录 node节点数据csv文件 rels关系数据csv文件
+注意：import导入前必须停止neo4j数据文件的数据库是停止状态
